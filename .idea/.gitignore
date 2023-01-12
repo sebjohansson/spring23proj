@@ -2,5 +2,6 @@
 /shelf/
 /workspace.xml
 node_modules
+logs
 # Editor-based HTTP Client requests
 /httpRequests/
