@@ -1,36 +1,29 @@
-import { computeHeadingLevel } from "@testing-library/react";
-import React,{useState} from "react";
-import audio from '../assets/space-120280.mp3';
+import { useState, useRef } from "react";
 
+import music from "../assets/space-120280.mp3";
 
-const PlayMusic =()=>{
+const PlayMusic = () => {
+  const [playing, setPlaying] = useState(false);
 
-    
+  const song = music;
 
-    const [isToggled, SetIsToggled] = useState(false);
-  
-    const handleToggle =()=>{
-        const song = new Audio(audio);
-            SetIsToggled(!isToggled)
-            switch(isToggled){
-                default: song.current.pause()
-                case false: song.current.pause()
-                case true: song.current.play()
-            }
-            console.log(isToggled)
-    }
+  const audioRef = useRef(new Audio(song));
 
-  
+  const play = () => {
+    setPlaying(true);
+    audioRef.current.play();
+  };
 
+  const pause = () => {
+    setPlaying(false);
+    audioRef.current.pause();
+  };
 
-    
-    return (
-        <div>
-          <button onClick={handleToggle}>PLAY AUDIO</button>
-        
-        </div>
-    );
-  }
-
+  return (
+    <div>
+      <button className="w-10 h-10" onClick={playing ? pause : play}></button>
+    </div>
+  );
+};
 
 export default PlayMusic;
