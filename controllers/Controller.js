@@ -25,22 +25,16 @@ const postNewQuestion = asyncHandler(async (req, res) => {
             QuestionImageLink } = req.body
 
     //Confirm Data
-    // if( !QuestionDescription ||
-    //     !QuestionOptions ||
-    //     !QuestionCorrectAnswer ||
-    //     !QuestionExplanation ||
-    //     !QuestionImageLink) {
-    //     return res.status(400).json({message: 'All fields are required'})
-    // }
-
-    // Check for duplicate; not necessery but useful for FUTURE
-    const duplicate = await Quiz.findOne({}).lean().exec()
-
-    if (duplicate) {
-        return res.status(409).json({message: 'Duplicate information'})
+    if( !QuestionDescription ||
+        !QuestionOptions ||
+        !QuestionCorrectAnswer ||
+        !QuestionExplanation ||
+        !QuestionImageLink) {
+        return res.status(400).json({message: 'All fields are required'})
     }
 
-    //Create and store question for quiz
+
+    //Create and store question as Object for quiz
     const quizObject = { QuestionDescription,
                          QuestionOptions,
                          QuestionCorrectAnswer,
@@ -69,27 +63,32 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
             QuestionImageLink
           } = req.body
 
-     //Confirm Data
-     if( !id ||
-        !QuestionDescription ||
-        !QuestionOptions ||
-        !QuestionCorrectAnswer ||
-        !QuestionExplanation ||
-        !QuestionImageLink) {
-        return res.status(400).json({message: 'All fields are required'})
-    }
+         //Confirm Data
+         if(!id ||
+            !QuestionDescription ||
+            !QuestionOptions ||
+            !QuestionCorrectAnswer ||
+            !QuestionExplanation ||
+            !QuestionImageLink) {
+            return res.status(400).json({message: 'All fields are required'})
+        }
 
+        const question = await Quiz.findById(id).exec()
 
-    const question = await Quiz.findById(id).exec()
+                // ! Not found
+                if (!question) {
+                    return res.status(400).json({message: 'Question from Quiz not found.'})
+                }
 
+                question.QuestionDescription = QuestionDescription
+                question.QuestionOptions = QuestionOptions
+                question.QuestionCorrectAnswer = QuestionCorrectAnswer
+                question.QuestionExplanation = QuestionExplanation
+                question.QuestionImageLink = QuestionImageLink
+            
+                const updatedQuestion = await question.save()
 
-    // ! Not found
-    if (!question) {
-        return res.status(400).json({message: 'Question from Quiz not found.'})
-    }
-
-
-
+                res.json({message: `${updatedQuestion.id} updated`})
 })
 
 // @desc DELETE existing Question

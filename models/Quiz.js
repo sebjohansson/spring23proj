@@ -7,7 +7,6 @@ const quizSchema = new mongoose.Schema({
 
     QuestionDescription: {
         type: String,
-        default: "Description for question here",
         required: true
     },
     QuestionOptions: [{
@@ -20,7 +19,6 @@ const quizSchema = new mongoose.Schema({
     },
     QuestionExplanation: {
         type: String,
-        default: "now im gonna enlighten u cuz u stoppid",
         required: true
     },
     QuestionImageLink: {
