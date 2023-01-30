@@ -9,6 +9,9 @@ const corsOptions = require('./config/corsOptions')
 
 const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
+
+mongoose.set('strictQuery', true) // [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+
 const { Console } = require('console')
 
 const PORT = process.env.PORT || 3500
@@ -31,7 +34,7 @@ app.use('/', require('./routes/root'))
 app.all('*', (req, res) => {
     res.status(400)
     if (req.accepts('html')) {
-        res.sendfile(path.join(__dirname, 'views', '404.html'))
+        res.sendFile(path.join(__dirname, 'views', '404.html'))
     } else if (req.accepts('json')) {
         res.json({message: "404 Not Found"})
     } else {
@@ -49,7 +52,8 @@ mongoose.connection.once('open', () => {
 
 mongoose.connection.once('error', err => {
     console.log(err)
-    logEvents(`${err.no}:
+    logEvents(`
+    ${err.no}:
     ${err.code}\t
     ${err.syscall}\t
     ${err.hostname}`, 'mongoErrLog.log')
