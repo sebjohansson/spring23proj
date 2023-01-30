@@ -6,8 +6,8 @@ const asyncHandler = require('express-async-handler')
 // @route GET /questions
 // @access Private
 const getAllQuestions = asyncHandler(async (req, res) => {
-    const questions = await Quiz.find().all()
-    if (!questions.length) {
+    const questions = await Quiz.find().select().lean()
+    if (!questions?.length) {
          return res.status(400).json({ message: 'No questions found'})
     }
     res.json(questions)
@@ -25,13 +25,13 @@ const postNewQuestion = asyncHandler(async (req, res) => {
             QuestionImageLink } = req.body
 
     //Confirm Data
-    if( !QuestionDescription ||
-        !QuestionOptions ||
-        !QuestionCorrectAnswer ||
-        !QuestionExplanation ||
-        !QuestionImageLink) {
-        return res.status(400).json({message: 'All fields are required'})
-    }
+    // if( !QuestionDescription ||
+    //     !QuestionOptions ||
+    //     !QuestionCorrectAnswer ||
+    //     !QuestionExplanation ||
+    //     !QuestionImageLink) {
+    //     return res.status(400).json({message: 'All fields are required'})
+    // }
 
     // Check for duplicate; not necessery but useful for FUTURE
     const duplicate = await Quiz.findOne({}).lean().exec()
@@ -61,7 +61,8 @@ const postNewQuestion = asyncHandler(async (req, res) => {
 // @route PATCH /questions
 // @access Private
 const patchExistingQuestion = asyncHandler(async (req, res) => {
-    const { QuestionDescription,
+    const { id,
+            QuestionDescription,
             QuestionOptions,
             QuestionCorrectAnswer,
             QuestionExplanation,

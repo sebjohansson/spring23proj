@@ -1,0 +1,55 @@
+20230130	12:25:39	899860eb-3509-4e6d-9a00-02157eab6262	ReferenceError:
+            QuestionDescription is not defined	
+            GET	
+            /questions	
+            undefined
+20230130	12:26:33	014b901b-b919-4822-a1d8-712bec343d0b	ReferenceError:
+            QuestionDescription is not defined	
+            GET	
+            /questions	
+            undefined
+20230130	12:26:57	b0416f48-9cc1-4def-bc18-9e32c8b6a944	ReferenceError:
+            QuestionDescription is not defined	
+            GET	
+            /questions	
+            undefined
+20230130	12:28:40	bf3b78b9-337a-4923-b762-5e16e6d00c01	ReferenceError:
+            QuestionDescription is not defined	
+            GET	
+            /questions	
+            undefined
+20230130	12:30:33	bdb82ea8-02f2-43df-a355-626cdae99cb9	MongoServerError:
+            user is not allowed to do action [find] on [QuizDB.quizzes]	
+            GET	
+            /questions	
+            undefined
+20230130	12:30:45	0db3ca40-5bb7-45fa-9819-ecd9a247cf44	MongoServerError:
+            user is not allowed to do action [find] on [QuizDB.quizzes]	
+            GET	
+            /questions	
+            undefined
+20230130	12:30:58	7c2b6ad9-6b37-40da-aeb6-42d5cfe83cd1	MongoServerError:
+            user is not allowed to do action [find] on [QuizDB.quizzes]	
+            GET	
+            /questions	
+            undefined
+20230130	12:31:01	63aa604e-2383-4b97-aada-c00ce7c34608	MongoServerError:
+            user is not allowed to do action [find] on [QuizDB.quizzes]	
+            GET	
+            /questions	
+            undefined
+20230130	12:33:42	5a291132-1368-4834-967c-02751df7f985	MongoServerError:
+            user is not allowed to do action [find] on [QuizDB.quizzes]	
+            GET	
+            /questions	
+            undefined
+20230130	12:41:14	60f0d5fd-48b8-40ea-bcaf-a1101095c91f	ValidationError:
+            Quiz validation failed: QuestionDescription: Path `QuestionDescription` is required.	
+            POST	
+            /questions	
+            undefined
+20230130	12:42:48	65ae8eac-8638-43e8-a58a-ffda56946a78	ReferenceError:
+            id is not defined	
+            PATCH	
+            /questions	
+            undefined
