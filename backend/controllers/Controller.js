@@ -94,7 +94,7 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
 
     const updatedQuestion = await question.save()
 
-    res.json({message: ${updatedQuestion.QuestionIndex} updated})
+    res.json({message: `${updatedQuestion.QuestionIndex} updated`})
 })
 
 // @desc DELETE existing Question
