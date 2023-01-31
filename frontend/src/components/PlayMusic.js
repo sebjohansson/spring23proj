@@ -7,8 +7,11 @@ const PlayMusic = () => {
   const [playing, setPlaying] = useState(false);
 
   const song = music;
-
+  
   const audioRef = useRef(new Audio(song));
+  audioRef.current.volume = 0.2;
+  audioRef.current.loop = true;
+
 
   const play = () => {
     setPlaying(true);
