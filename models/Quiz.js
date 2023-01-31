@@ -4,7 +4,11 @@ const { stringify } = require('uuid')
 
 const quizSchema = new mongoose.Schema({
 
-
+    QuestionIndex: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     QuestionDescription: {
         type: String,
         required: true

@@ -18,14 +18,16 @@ const getAllQuestions = asyncHandler(async (req, res) => {
 // @route POST /question
 // @access Private
 const postNewQuestion = asyncHandler(async (req, res) => {
-    const { QuestionDescription,
+    const { QuestionIndex,
+            QuestionDescription,
             QuestionOptions,
             QuestionCorrectAnswer,
             QuestionExplanation,
             QuestionImageLink } = req.body
 
     //Confirm Data
-    if( !QuestionDescription ||
+    if( !QuestionIndex ||
+        !QuestionDescription ||
         !QuestionOptions ||
         !QuestionCorrectAnswer ||
         !QuestionExplanation ||
@@ -35,7 +37,8 @@ const postNewQuestion = asyncHandler(async (req, res) => {
 
 
     //Create and store question as Object for quiz
-    const quizObject = { QuestionDescription,
+    const quizObject = { QuestionIndex,
+                         QuestionDescription,
                          QuestionOptions,
                          QuestionCorrectAnswer,
                          QuestionExplanation,
@@ -55,7 +58,8 @@ const postNewQuestion = asyncHandler(async (req, res) => {
 // @route PATCH /questions
 // @access Private
 const patchExistingQuestion = asyncHandler(async (req, res) => {
-    const { id,
+    const {
+            QuestionIndex,
             QuestionDescription,
             QuestionOptions,
             QuestionCorrectAnswer,
@@ -64,7 +68,8 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
           } = req.body
 
          //Confirm Data
-         if(!id ||
+         if(
+            !QuestionIndex ||
             !QuestionDescription ||
             !QuestionOptions ||
             !QuestionCorrectAnswer ||
@@ -73,13 +78,14 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
             return res.status(400).json({message: 'All fields are required'})
         }
 
-        const question = await Quiz.findById(id).exec()
+        const question = await Quiz.findOneAndUpdate(QuestionIndex).exec()
 
                 // ! Not found
                 if (!question) {
                     return res.status(400).json({message: 'Question from Quiz not found.'})
                 }
 
+                question.QuestionIndex = QuestionIndex
                 question.QuestionDescription = QuestionDescription
                 question.QuestionOptions = QuestionOptions
                 question.QuestionCorrectAnswer = QuestionCorrectAnswer
@@ -88,7 +94,7 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
             
                 const updatedQuestion = await question.save()
 
-                res.json({message: `${updatedQuestion.id} updated`})
+                res.json({message: `${updatedQuestion.QuestionIndex} updated`})
 })
 
 // @desc DELETE existing Question
@@ -97,8 +103,8 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
 const deleteExistingQuestion  = asyncHandler(async (req, res) => {
 
 
-    const { id } = req.body
-    const question = await Quiz.findById(id).exec()
+    const { QuestionIndex } = req.body
+    const question = await Quiz.findOneAndDelete(QuestionIndex).exec()
 
     if (!question) {
         return res.status(400).json({ message: 'Question is not found'})
@@ -106,8 +112,7 @@ const deleteExistingQuestion  = asyncHandler(async (req, res) => {
 
     const result = await question.deleteOne()
 
-    const reply = `Question ${result.question} with ID ${result._id}
-    delete`
+    const reply = `Question ${result.QuestionDescription} with ID ${result.QuestionIndex} deleted`
 
     res.json(reply)
 })

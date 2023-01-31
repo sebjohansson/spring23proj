@@ -53,3 +53,18 @@
             PATCH	
             /questions	
             undefined
+20230131	11:50:08	ec350339-a416-4e54-bbda-5d62ada0332e	MongoServerError:
+            E11000 duplicate key error collection: QuizDB.quizzes index: QuestionIndex_1 dup key: { QuestionIndex: 1 }	
+            POST	
+            /questions	
+            undefined
+20230131	11:50:36	56fcf323-2b44-4b1a-93f7-67abdd9c8dc4	MongoServerError:
+            E11000 duplicate key error collection: QuizDB.quizzes index: QuestionIndex_1 dup key: { QuestionIndex: 1 }	
+            POST	
+            /questions	
+            undefined
+20230131	11:50:37	bbf6f1e6-73a2-4121-96fd-3be63be1e485	MongoServerError:
+            E11000 duplicate key error collection: QuizDB.quizzes index: QuestionIndex_1 dup key: { QuestionIndex: 1 }	
+            POST	
+            /questions	
+            undefined
