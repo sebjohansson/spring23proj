@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-
+import rocket1 from "../assets/rocketicon-01.svg";
+import rocket2 from "../assets/rocketicon-02.svg"
 import music from "../assets/space-120280.mp3";
 
 const PlayMusic = () => {
@@ -20,8 +21,10 @@ const PlayMusic = () => {
   };
 
   return (
-    <div>
-      <button className="w-10 h-10" onClick={playing ? pause : play}></button>
+    <div className="absolute right-0 bottom-0">
+      {playing === false && (<img src={rocket1} alt="MY rocket" className="w-32 h-32" onClick={playing ? pause : play}></img>) 
+      || (<img src={rocket2} alt="MY rocket2" className="w-32 h-32" onClick={playing ? pause : play}></img>)}
+      
     </div>
   );
 };
