@@ -60,13 +60,7 @@ export default function App() {
         },
     ];
 
-    const handleClicker = () => {
 
-        setActive(!active);
-    }
-    const filterWeek2 = () => {
-        setActive(!active);
-    };
     let colorForCorrectAndFalse = '';
     const {color,setColor} = useState('');
     const [active, setActive] = useState(true);
@@ -74,36 +68,20 @@ export default function App() {
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
     const [point, setPoint] = useState(0);
-    const [showRewardInfo, setShowRewardInfo] = useState(false)
-
     const [showRewardText, setShowRewardText] = useState(false);
 
     //Resetting to first question and set points to zero
     const resetHandler = () => {
-        setShowRewardInfo(true);
+
         setCurrentQuestion(0);
         setShowScore(false);
         setScore(0);
         setActive(true);
-        setPoint(0);
-        setColor('');
+
+
 
     }
-    //Old auto nextQuestionAndSetPoint handler
-    const handlerAnswerButtonOnClick = (isCorrect) => {
-        if (isCorrect === true){
-            setScore(score +1);
 
-        }
-        const nextQuestion = currentQuestion +1;
-        if (nextQuestion < questions.length){
-            setCurrentQuestion(nextQuestion);
-        }
-        else {
-            setShowScore(true);
-        }
-
-    }
 
     //Handler for setting score if true and change color based on true or false
     const buttonHandlerGuesser = (isCorrect,id) => {
@@ -111,21 +89,15 @@ export default function App() {
 
         if (isCorrect === true){
             setShowRewardText(true)
-            setShowRewardInfo(false);
             setScore(score +1);
-            setPoint(id);
-            setColor('#2f922f');
 
         }
         else {
 
-
         }
-        //TODO fix better solution need to toggle active after every new question
 
     }
-    // Handler for button to change next question.
-    //TODO cant skip question before answering! and disable when answering
+    // Handler for button to change next question and change to showScore phase when done with all questions.
     const nextQuestionHandler = () => {
         setShowRewardText(false)
 
@@ -167,7 +139,7 @@ export default function App() {
                     </div>
                     <div className='answer-section'>
                         {questions[currentQuestion].answerOptions.map((answerOption) =>
-                            <button disabled={!active} id={answerOption.id} className={color} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect,answerOption.id) }>{answerOption.answerText}</button>
+                            <button disabled={!active} id={answerOption.id} className='' onClick={() =>buttonHandlerGuesser(answerOption.isCorrect,answerOption.id) }>{answerOption.answerText}</button>
                         )}
                         <div className='testButtonDiv'> <button className={'nextButton'} disabled={active} onClick={nextQuestionHandler}  >Next</button></div>
 
