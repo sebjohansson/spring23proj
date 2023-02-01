@@ -1,4 +1,4 @@
-const allowedOrigins = require('./allowedOrigins')
+allowedOrigins = require('./allowedOrigins') // Optional for Controlled endpoints
 
 
 const corsOptions = {

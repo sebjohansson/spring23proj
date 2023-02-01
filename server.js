@@ -12,7 +12,7 @@ const mongoose = require('mongoose')
 
 mongoose.set('strictQuery', true) // [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
 
-const { Console } = require('console')
+const { console } = require('console')
 
 const PORT = process.env.PORT || 3500
 console.log(process.env.NODE_ENV)

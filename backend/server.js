@@ -3,11 +3,11 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const { logger, logEvents } = require('../middleware/logger')
-const errorHandler = require('../middleware/errorHandler')
+const errorHandler = require('./middleware/errorHandler')
 const cors = require('cors')
-const corsOptions = require('../config/corsOptions')
+const corsOptions = require('./config/corsOptions')
 
-const connectDB = require('../config/dbConn')
+const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 
 mongoose.set('strictQuery', true) // [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
