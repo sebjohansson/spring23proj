@@ -28,10 +28,10 @@ const postNewQuestion = asyncHandler(async (req, res) => {
     //Confirm Data
     if( !QuestionIndex ||
         !QuestionDescription ||
-    !QuestionOptions ||
-    !QuestionCorrectAnswer ||
-    !QuestionExplanation ||
-    !QuestionImageLink) {
+        !QuestionOptions ||
+        !QuestionCorrectAnswer ||
+        !QuestionExplanation ||
+        !QuestionImageLink) {
         return res.status(400).json({message: 'All fields are required'})
     }
 
