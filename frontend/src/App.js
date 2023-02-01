@@ -12,6 +12,12 @@ export default function App() {
                 { answerText: 'Paris', isCorrect: true ,id:33},
                 { answerText: 'Dublin', isCorrect: false ,id:4},
             ],
+            answerTest: [
+                { answerTest2: 'djdsapodjasdposdosjdosadjsoapddjdsapo' +
+                        'djasdposdosjdosadjsoapddjdsapodjasdposdosjdosadjsoapd'},
+
+            ],
+
         },
         {
             questionText: 'Who is CEO of Tesla?',
@@ -20,6 +26,10 @@ export default function App() {
                 { answerText: 'Elon Musk', isCorrect: true,id:33 },
                 { answerText: 'Bill Gates', isCorrect: false ,id:3},
                 { answerText: 'Tony Stark', isCorrect: false ,id:4},
+            ],
+            answerTest: [
+                { answerTest2: 'djdsapodjasdposdosjdosadjsoapd'},
+
             ],
         },
         {
@@ -30,6 +40,10 @@ export default function App() {
                 { answerText: 'Amazon', isCorrect: false,id:3 },
                 { answerText: 'Microsoft', isCorrect: false,id:4 },
             ],
+            answerTest: [
+                { answerTest2: 'djdsapodjasdposdosjdosadjsoapd'},
+
+            ],
         },
         {
             questionText: 'How many Harry Potter books are there?',
@@ -38,6 +52,10 @@ export default function App() {
                 { answerText: '4', isCorrect: false ,id:2},
                 { answerText: '6', isCorrect: false ,id:3},
                 { answerText: '7', isCorrect: true ,id:33},
+            ],
+            answerTest: [
+                { answerTest2: 'djdsapodjasdposdosjdosadjsoapd'},
+
             ],
         },
     ];
@@ -56,9 +74,13 @@ export default function App() {
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
     const [point, setPoint] = useState(0);
+    const [showRewardInfo, setShowRewardInfo] = useState(false)
+
+    const [showRewardText, setShowRewardText] = useState(false);
 
     //Resetting to first question and set points to zero
-    const handlerReset = () => {
+    const resetHandler = () => {
+        setShowRewardInfo(true);
         setCurrentQuestion(0);
         setShowScore(false);
         setScore(0);
@@ -84,10 +106,12 @@ export default function App() {
     }
 
     //Handler for setting score if true and change color based on true or false
-    const handlerAnswerButtonColor = (isCorrect,id) => {
+    const buttonHandlerGuesser = (isCorrect,id) => {
         setActive(false);
 
-        if (isCorrect === true && id === 33 ){
+        if (isCorrect === true){
+            setShowRewardText(true)
+            setShowRewardInfo(false);
             setScore(score +1);
             setPoint(id);
             setColor('#2f922f');
@@ -95,13 +119,16 @@ export default function App() {
         }
         else {
 
+
         }
         //TODO fix better solution need to toggle active after every new question
 
     }
     // Handler for button to change next question.
     //TODO cant skip question before answering! and disable when answering
-    const handlerNextQuestion = () => {
+    const nextQuestionHandler = () => {
+        setShowRewardText(false)
+
         const nextQuestion = currentQuestion +1;
         setActive(true);
         if (nextQuestion < questions.length){
@@ -115,7 +142,7 @@ export default function App() {
         }
 
     }
-
+    // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
     return (
         <div className='app'  style={{
             position: 'absolute', left: '50%', top: '50%',
@@ -123,7 +150,7 @@ export default function App() {
         }}>
             {showScore ? (
                 <div className='score-section'>You scored {score} out of {questions.length}
-                    <button onClick={handlerReset}>Restart</button>
+                    <button onClick={resetHandler}>Restart</button>
                 </div>
 
             ) : (
@@ -133,35 +160,42 @@ export default function App() {
                             <span>Question {currentQuestion +1}  </span>/{questions.length}
                         </div>
                         <div className='question-text'>{questions[currentQuestion].questionText}</div>
+
+
+
+
                     </div>
                     <div className='answer-section'>
                         {questions[currentQuestion].answerOptions.map((answerOption) =>
-                            <button disabled={!active} id={answerOption.id} className={color} onClick={() =>handlerAnswerButtonColor(answerOption.isCorrect,answerOption.id) }>{answerOption.answerText}</button>
+                            <button disabled={!active} id={answerOption.id} className={color} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect,answerOption.id) }>{answerOption.answerText}</button>
                         )}
-                        <div className='testButtonDiv'> <button className={'nextButton'} disabled={active} onClick={handlerNextQuestion}  >Next</button></div>
+                        <div className='testButtonDiv'> <button className={'nextButton'} disabled={active} onClick={nextQuestionHandler}  >Next</button></div>
 
                     </div>
+                    {showRewardText ? (
 
+                    <div className='max-w-xs text-bubble-gum' >REWARD {questions[currentQuestion].answerTest.map((answerReward) =>
+                        <p className='text-left break-words text-white'>{answerReward.answerTest2}</p>
+                    )}</div>
+                    ) : (<>
+
+                            <div className='w-full'>
+
+                            </div>
+
+                            </>
+
+                        )}
                 </>
 
             )}
 
-            {/*{showScore ? (*/}
-            {/*    <div className='score-section'>You scored {score} out of {questions.length}*/}
-            {/*        <button onClick={handlerReset}>Restart</button>*/}
-            {/*    </div>*/}
 
-            {/*) : (*/}
-            {/*    <>*/}
-            {/*        <div className='question-section'>*/}
-            {/*            */}
-            {/*        </div>*/}
 
-            {/*    </>*/}
-
-            {/*)}*/}
 
         </div>
+
     );
+
 }
 

@@ -17,7 +17,7 @@ code {
 
 .app {
   background-color: #252d4a;
-  width: 450px;
+  width: 900px;
   min-height: 200px;
   height: min-content;
   border-radius: 15px;
@@ -67,9 +67,10 @@ code {
 /* ANSWERS/RIGHT SECTION */
 .answer-section {
   width: 100%;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: right;
 
 }
 div {
@@ -98,7 +99,7 @@ div {
 
 }
 button {
-  width: 100%;
+  width: 95%;
   font-size: 16px;
   color: #ffffff;
   background-color: #252d4a;
