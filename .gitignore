@@ -6,7 +6,7 @@
 /.pnp
 .pnp.js
 .idea
-.env
+backend\.env
 
 # Editor-based HTTP Client requests
 /httpRequests/
