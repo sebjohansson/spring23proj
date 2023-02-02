@@ -6,8 +6,6 @@
 /.pnp
 .pnp.js
 .idea
-backend/.env
-vars/.env
 .env
 
 # Editor-based HTTP Client requests
@@ -31,3 +29,4 @@ vars/.env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+backend/.env
