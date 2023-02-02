@@ -7,6 +7,7 @@
 .pnp.js
 .idea
 .env
+backend/.env*
 
 # Editor-based HTTP Client requests
 /httpRequests/
@@ -29,4 +30,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-backend/.env
