@@ -1,18 +1,22 @@
-import "./App.css";
-import Logo from "./components/logo";
-import PlayMusic from "./components/PlayMusic";
-import StartInfo from "./components/StartInfo";
+import "./App.css"
+import Footer from "./components/footer"
+import Logo from "./components/logo"
+import PlayMusic from "./components/PlayMusic"
+import StartInfo from "./components/StartInfo"
 
 function App() {
   return (
-    <div>
+    <div className="">
       <Logo />
+
       <StartInfo />
-      <PlayMusic/>
-      <p className="text-lg color-red-500 ">Welcome</p>
-      <div className="black text-2xl"> To the app component</div>
+      <PlayMusic />
+
+      <div className="">
+        <Footer></Footer>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

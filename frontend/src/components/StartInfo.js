@@ -7,7 +7,7 @@ const StartInfo = () => {
   }
 
   return (
-    <section className="bg-purple-500 bg-opacity-50 outline-8 outline-dotted outline-purple-400 p-10 m-auto w-4/5 md:w-3/5 lg:w-2/5 rounded-lg">
+    <section className="bg-purple-500 bg-opacity-50 outline-8 outline-dotted outline-purple-400 p-10 m-auto w-4/5 md:w-3/5 lg:w-2/5 rounded-lg pt-10 pb-10">
       <h1 className="text-lg font-black tracking-widest text-white ">
         From Planet To Stars!
       </h1>
