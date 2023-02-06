@@ -12,6 +12,8 @@ root.render(
         <App />
       </div>
     </div>
+    <App />
+    <div className="text-2xl text-blue-400" >Index</div>
   </React.StrictMode>
 )
 
