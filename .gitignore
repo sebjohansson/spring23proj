@@ -1,9 +1,13 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
+# Default ignored files
+/shelf/
+/workspace.xml
+/backend/node_modules
+/frontend/node_modules
 /.pnp
 .pnp.js
+# Editor-based HTTP Client requests
+/httpRequests/
+
 
 # testing
 /coverage
