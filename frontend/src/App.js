@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import colors from "tailwindcss/colors";
 
 
 export default function App() {
     const questions = [
+
+        //TODO check converting | QuestionOptions array index === med questioncorrectanswer (indexnumbret)
+
         {
             questionText: 'What is the capital of France?',
             answerOptions: [
@@ -61,54 +64,49 @@ export default function App() {
     ];
 
 
-    let colorForCorrectAndFalse = '';
-    const {color,setColor} = useState('');
+
     const [active, setActive] = useState(true);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
-    const [point, setPoint] = useState(0);
     const [showRewardText, setShowRewardText] = useState(false);
+    const [color, setColor] = useState('')
 
     //Resetting to first question and set points to zero
     const resetHandler = () => {
-
         setCurrentQuestion(0);
         setShowScore(false);
         setScore(0);
         setActive(true);
-
-
-
     }
 
 
     //Handler for setting score if true and change color based on true or false
-    const buttonHandlerGuesser = (isCorrect,id) => {
+    const buttonHandlerGuesser = (isCorrect, answerText) => {
         setActive(false);
-
         if (isCorrect === true){
+            setColor("bg-bubble-gum rounded-2xl")
+
             setShowRewardText(true)
             setScore(score +1);
 
         }
         else {
+            setColor("bg-tahiti rounded-2xl")
 
         }
 
     }
+
     // Handler for button to change next question and change to showScore phase when done with all questions.
     const nextQuestionHandler = () => {
         setShowRewardText(false)
-
+        setColor("")
         const nextQuestion = currentQuestion +1;
         setActive(true);
         if (nextQuestion < questions.length){
-
             setCurrentQuestion(nextQuestion);
-
         }
-
         else {
             setShowScore(true);
         }
@@ -116,56 +114,56 @@ export default function App() {
     }
     // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
     return (
-        <div className='app'  style={{
-            position: 'absolute', left: '50%', top: '50%',
-            transform: 'translate(-50%, -50%)'
-        }}>
+        <section className='flex m-auto  w-2/4 mt-56 bg-metal mb-28 rounded-xl shadow-md'>
             {showScore ? (
                 <div className='score-section'>You scored {score} out of {questions.length}
                     <button onClick={resetHandler}>Restart</button>
                 </div>
 
             ) : (
-                <>
-                    <div className='question-section'>
+                <div className="flex-col-2 relative m-auto mt-12">
+                    <div className='m-auto'>
                         <div className='question-count'>
                             <span>Question {currentQuestion +1}  </span>/{questions.length}
                         </div>
                         <div className='question-text'>{questions[currentQuestion].questionText}</div>
 
 
-
-
                     </div>
-                    <div className='answer-section'>
+                    <div className="m-auto mt-10 space-x-10 mb-20 ">
                         {questions[currentQuestion].answerOptions.map((answerOption) =>
-                            <button disabled={!active} id={answerOption.id} className='' onClick={() =>buttonHandlerGuesser(answerOption.isCorrect,answerOption.id) }>{answerOption.answerText}</button>
+                            <button disabled={!active} className={answerOption.isCorrect ? color + "rounded-2xl p-2 hover:bg-white transition ease-in-out duration-300" : "rounded-2xl p-2 hover:bg-white transition ease-in-out duration-300"} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect, answerOption.answerText )} key={answerOption.answerText}>{answerOption.answerText}</button>
                         )}
-                        <div className='testButtonDiv'> <button className={'nextButton'} disabled={active} onClick={nextQuestionHandler}  >Next</button></div>
+
+                        <div className='absolute right-0 bottom-0 bg-white rounded-2xl' > <button className={active ? 'hidden' : 'block' } onClick={nextQuestionHandler}  >Next > </button></div>
 
                     </div>
-                    {showRewardText ? (
 
-                    <div className='max-w-xs text-bubble-gum' >REWARD {questions[currentQuestion].answerTest.map((answerReward) =>
-                        <p className='text-left break-words text-white'>{answerReward.answerTest2}</p>
-                    )}</div>
-                    ) : (<>
+                </div>
 
-                            <div className='w-full'>
+            )}
 
-                            </div>
+        <div>
+            {showRewardText ? (
+                <div className='max-w-xs text-bubble-gum' >REWARD {questions[currentQuestion].answerTest.map((answerReward) =>
+                    <p className='text-left break-words text-white'>{answerReward.answerTest2}</p>
+                )}</div>
+            ) : (<>
 
-                            </>
+                    <div className='hidden'>
 
-                        )}
+                    </div>
+
                 </>
 
             )}
 
-
-
-
         </div>
+
+
+        </section>
+
+
 
     );
 
