@@ -14,13 +14,12 @@ const quizSchema = new mongoose.Schema({
         required: true
     },
     QuestionOptions: [{
-        type: String,
-        required: true
+        answerText: String,
+        type: {
+            type: {type: String}
+        },
+        isCorrect: Boolean, 
     }],
-    QuestionCorrectAnswer: {
-        type: Number,
-        required: true
-    },
     QuestionExplanation: {
         type: String,
         required: true

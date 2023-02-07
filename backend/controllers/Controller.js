@@ -21,7 +21,6 @@ const postNewQuestion = asyncHandler(async (req, res) => {
     const { QuestionIndex,
         QuestionDescription,
         QuestionOptions,
-        QuestionCorrectAnswer,
         QuestionExplanation,
         QuestionImageLink } = req.body
 
@@ -29,7 +28,6 @@ const postNewQuestion = asyncHandler(async (req, res) => {
     if( !QuestionIndex ||
         !QuestionDescription ||
         !QuestionOptions ||
-        !QuestionCorrectAnswer ||
         !QuestionExplanation ||
         !QuestionImageLink) {
         return res.status(400).json({message: 'All fields are required'})
@@ -40,7 +38,6 @@ const postNewQuestion = asyncHandler(async (req, res) => {
     const quizObject = { QuestionIndex,
         QuestionDescription,
         QuestionOptions,
-        QuestionCorrectAnswer,
         QuestionExplanation,
         QuestionImageLink
     }
@@ -62,7 +59,6 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
         QuestionIndex,
         QuestionDescription,
         QuestionOptions,
-        QuestionCorrectAnswer,
         QuestionExplanation,
         QuestionImageLink
     } = req.body
@@ -72,7 +68,6 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
         !QuestionIndex ||
         !QuestionDescription ||
     !QuestionOptions ||
-    !QuestionCorrectAnswer ||
     !QuestionExplanation ||
     !QuestionImageLink) {
         return res.status(400).json({message: 'All fields are required'})
@@ -88,7 +83,6 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
     question.QuestionIndex = QuestionIndex
     question.QuestionDescription = QuestionDescription
     question.QuestionOptions = QuestionOptions
-    question.QuestionCorrectAnswer = QuestionCorrectAnswer
     question.QuestionExplanation = QuestionExplanation
     question.QuestionImageLink = QuestionImageLink
 
