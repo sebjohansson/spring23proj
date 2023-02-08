@@ -1,9 +1,11 @@
 import laser from "../assets/laser.mp3"
 
-const StartInfo = () => {
+const StartInfo = ({stateHandler}) => {
   let audio = new Audio(laser)
   const startLaser = () => {
     audio.play()
+      stateHandler(true)
+
   }
 
   return (

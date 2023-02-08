@@ -4,13 +4,14 @@ import Logo from "./components/logo"
 import PlayMusic from "./components/PlayMusic"
 import StartInfo from "./components/StartInfo"
 import MyFirst from "./components/MyFirst";
-
+import React, {useState, useEffect} from "react"
 function App() {
+    const [isStarted,setIsStarted] = useState(false)
   return (
     <div className="">
       <Logo />
-        <MyFirst />
-      <StartInfo />
+        {isStarted && <MyFirst stateHandler={setIsStarted}/>}
+        {!isStarted && <StartInfo stateHandler={setIsStarted}/>}
       <PlayMusic />
 
       <div className="">

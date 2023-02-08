@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 
 
-export default function MyFirst() {
+export default function MyFirst({stateHandler}) {
 
 
 
@@ -19,46 +19,52 @@ export default function MyFirst() {
     const [error, setError] = useState(null);
     const [quiz, setQuiz] = useState([]);
 
-    const shuffleArray = d => {
+    const shuffleArray = (d) => {
         for (let i = d.length; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            const temp = d[i];
-            d[i] = d[j];
-            d[j] = temp
+            d.push(d[j]);
+            d.splice(j,1)
         }
         return d
     }
 
 
     useEffect(() => {
-        fetch(`http://localhost:3500/Questions`)
-            .then(response => {
-                if (response.ok){
-                    return response.json()
-                }})
-            .then((d) => {
-                setLoading(false);
-                setData(d);
-
-                let v = shuffleArray(d)
-                setQuiz(v.slice(0,2))
-            })
-            .catch((e) => {
-                console.error(`An error occurred: ${e}`)
-            });
+       const fetchData = () => {
+           fetch(`http://localhost:3500/questions`)
+               .then(response => {
+                   if (response.ok) {
+                       return response.json()
+                   }
+               })
+               .then(d => {
+                   setLoading(false);
+                   setData(d);
+                   let v = shuffleArray(d)
+                   setQuiz(v)
+               })
+               .catch((e) => {
+                   console.error(`An error occurred: ${e}`)
+                   setError(e)
+               });
+       }
+    fetchData();
 
     }, []);
 
+    console.log(quiz)
     //Resetting to first question and set points to zero
     const resetHandler = () => {
         setCurrentQuestion(0);
         setShowScore(false);
         setScore(0);
         setActive(true);
-        let v = shuffleArray(...data)
-        setQuiz(v.slice(0, 2))
+        let v = shuffleArray(data)
+        setQuiz(v)
     }
-
+    const returnHandler = () => {
+        stateHandler(false)
+    }
 
     //Handler for setting score if true and change color based on true or false
     const buttonHandlerGuesser = (isCorrect) => {
@@ -97,9 +103,9 @@ export default function MyFirst() {
 
     // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
     return (
-
-        <section className='flex m-auto  w-2/4  bg-metal mb-28 rounded-xl shadow-md'>
-
+        <>
+        <section className='flex m-auto  w-2/4 relative bg-white mb-28 rounded-xl shadow-md'>
+            <button className='bg-tahiti absolute top-0 left-0' onClick={returnHandler}>Go back</button>
             {showScore ? (
                 <div className='score-section'>You scored {score} out of {quiz.length}>
                     <button onClick={resetHandler}>Restart</button>
@@ -113,25 +119,27 @@ export default function MyFirst() {
                             <span>Question {currentQuestion + 1}  </span>/{quiz.length}
                         </div>}
                         </div>
-                        <div className='question-text'>{!loading && quiz[currentQuestion].QuestionDescription}</div>
+
+                    <div className='question-text'>{!loading && quiz[currentQuestion]?.QuestionDescription}</div>
 
                     <div className="m-auto mt-10 space-x-10 mb-20 ">
-                        {!loading && quiz[currentQuestion].QuestionOptions.map((answerOption) =>
-                            <button disabled={!active} className={answerOption.isCorrect ? color + "rounded-2xl p-2 hover:bg-white transition ease-in-out duration-300" : "rounded-2xl p-2 hover:bg-white transition ease-in-out duration-300"} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect, answerOption.answerText )} >{answerOption.answerText}</button>
+                        {!loading && quiz[currentQuestion]?.QuestionOptions?.map((answerOption) =>
+                            <button disabled={!active}  className={answerOption.isCorrect ? color + "rounded-2xl p-2 hover:bg-metal transition ease-in-out duration-300" : "rounded-2xl p-2 hover:bg-metal transition ease-in-out duration-300"} key={answerOption.answerText} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect, answerOption.answerText )} >{answerOption.answerText}</button>
                         )}
 
-                        <div className='absolute right-0 bottom-0 bg-white rounded-2xl' > <button className={active ? 'hidden' : 'block' } onClick={nextQuestionHandler}  >Next > </button></div>
+
+                        <div className='absolute right-0 bottom-0 bg-purple rounded-2xl' > <button className={active ? 'hidden' : 'block' } onClick={nextQuestionHandler}  >Next > </button></div>
 
                     </div>
 
                 </div>
 
             )}
-
+        </section>
             <div>
                 {showRewardText ? (
                     <div className='max-w-xs text-bubble-gum' >REWARD
-                        {<p className='text-left break-words text-white'>{quiz[currentQuestion].QuestionExplanation}</p>}
+                        {<p className='text-left break-words text-white'>{quiz[currentQuestion]?.QuestionExplanation}</p>}
                     </div>
                 ) : (<>
 
@@ -146,8 +154,8 @@ export default function MyFirst() {
             </div>
 
 
-        </section>
 
+        </>
 
 
     );
