@@ -64,23 +64,18 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
     } = req.body
 
     //Confirm Data
-    if(
-        !QuestionIndex ||
-        !QuestionDescription ||
-    !QuestionOptions ||
-    !QuestionExplanation ||
-    !QuestionImageLink) {
-        return res.status(400).json({message: 'All fields are required'})
-    }
+    if( !QuestionIndex) {
+        return res.status(400).json({message: 'Question Index field is required'})}
+
 
     const question = await Quiz.findOneAndUpdate(QuestionIndex).exec()
+
 
     // ! Not found
     if (!question) {
         return res.status(400).json({message: 'Question from Quiz not found.'})
     }
 
-    question.QuestionIndex = QuestionIndex
     question.QuestionDescription = QuestionDescription
     question.QuestionOptions = QuestionOptions
     question.QuestionExplanation = QuestionExplanation
@@ -89,6 +84,7 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
     const updatedQuestion = await question.save()
 
     res.json({message: `${updatedQuestion.QuestionIndex} updated`})
+    
 })
 
 // @desc DELETE existing Question
