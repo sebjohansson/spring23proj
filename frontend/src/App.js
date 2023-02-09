@@ -1,4 +1,5 @@
 import "./App.css"
+import Results from "./components/Results"
 import Footer from "./components/footer"
 import Logo from "./components/logo"
 import PlayMusic from "./components/PlayMusic"
@@ -8,12 +9,9 @@ function App() {
   return (
     <div className="">
       <Logo />
-
-      <StartInfo />
-      <PlayMusic />
+        <Results></Results>
 
       <div className="">
-        <Footer></Footer>
       </div>
     </div>
   )
