@@ -21,14 +21,10 @@ export default function FetchAPI() {
 
         return (
             <div> 
-                    My API <br />
-                    <br />
-                    <pre> {JSON.stringify(data,null, 2)} </pre>
-
                 <div>
                     <ul>
                     {data.map(item => 
-                    <li>{item.QuestionIndex}{item.QuestionDescription}</li>
+                    <><h1>{item.QuestionDescription}</h1><h2>{item.QuestionExplanation}</h2></>
                     )}
 
                     </ul>
