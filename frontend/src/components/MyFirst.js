@@ -41,7 +41,7 @@ export default function MyFirst({stateHandler}) {
                    setLoading(false);
                    setData(d);
                    let v = shuffleArray(d)
-                   setQuiz(v)
+                   setQuiz(v.slice(0,10))
                })
                .catch((e) => {
                    console.error(`An error occurred: ${e}`)
@@ -60,7 +60,7 @@ export default function MyFirst({stateHandler}) {
         setScore(0);
         setActive(true);
         let v = shuffleArray(data)
-        setQuiz(v)
+        setQuiz(v.slice(0,10))
     }
     const returnHandler = () => {
         stateHandler(false)
@@ -68,11 +68,12 @@ export default function MyFirst({stateHandler}) {
 
     //Handler for setting score if true and change color based on true or false
     const buttonHandlerGuesser = (isCorrect) => {
+        setShowRewardText(true)
         setActive(false);
         if (isCorrect === true){
             setColor("bg-bubble-gum rounded-2xl")
 
-            setShowRewardText(true)
+
             setScore(score +1);
 
         }
@@ -104,31 +105,32 @@ export default function MyFirst({stateHandler}) {
     // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
     return (
         <>
-        <section className='flex m-auto  w-2/4 relative bg-white mb-28 rounded-xl shadow-md'>
-            <button className='bg-tahiti absolute top-0 left-0' onClick={returnHandler}>Go back</button>
+        <section className='flex m-auto  w-2/4 relative bg-newPurpleSlam/50 mb-28 rounded-xl shadow-md'>
+            <button className='absolute top-0 left-0 text-silver shadow-md hover:bg-metal ' onClick={returnHandler}>Go back</button>
             {showScore ? (
-                <div className='score-section'>You scored {score} out of {quiz.length}>
-                    <button onClick={resetHandler}>Restart</button>
+                <div className='score-section flex-col-2 m-auto  mt-12 text-silver mb 12 '><p className={'animate-pulse inline-block p-2 mb-14'}>You scored {score} out of {quiz.length} </p>
+                  <div className={'inline-block'}> <button className={'border-2 rounded-2xl hover:bg-metal text-silver p-2 '} onClick={resetHandler}>Restart</button></div>
                 </div>
 
             ) : (
-                <div className="flex-col-2 relative m-auto mt-12">
-                    <div className='m-auto'>
+                <div className="flex-col-2 relative m-auto mt-12 ">
+                    <div className='grid'>
                         {loading && <p>Loading...</p>}
-                        {!loading && <div className='question-count'>
-                            <span>Question {currentQuestion + 1}  </span>/{quiz.length}
-                        </div>}
+                        {!loading &&
+                            <p className='m-auto text-2xl text-silver'>Question {currentQuestion + 1}  /{quiz.length} </p>
+                        }
+                        {!loading && <p className='m-auto text-3xl text-silver'>{quiz[currentQuestion]?.QuestionDescription}</p>}
                         </div>
 
-                    <div className='question-text'>{!loading && quiz[currentQuestion]?.QuestionDescription}</div>
 
-                    <div className="m-auto mt-10 space-x-10 mb-20 ">
+
+                    <div className="flex justify-center space-x-4 mb-20 mt-5  ">
                         {!loading && quiz[currentQuestion]?.QuestionOptions?.map((answerOption) =>
-                            <button disabled={!active}  className={answerOption.isCorrect ? color + "rounded-2xl p-2 hover:bg-metal transition ease-in-out duration-300" : "rounded-2xl p-2 hover:bg-metal transition ease-in-out duration-300"} key={answerOption.answerText} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect, answerOption.answerText )} >{answerOption.answerText}</button>
+                            <button disabled={!active}  className={answerOption.isCorrect ? color + " text-silver p-2 border-2 hover:bg-metal transition ease-in-out duration-300 rounded" : " text-silver border-2  p-2 hover:bg-metal transition ease-in-out duration-300 rounded"} key={answerOption.answerText} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect, answerOption.answerText )} >{answerOption.answerText}</button>
                         )}
 
 
-                        <div className='absolute right-0 bottom-0 bg-purple rounded-2xl' > <button className={active ? 'hidden' : 'block' } onClick={nextQuestionHandler}  >Next > </button></div>
+                        <div className='absolute right-0 bottom-0  ' > <button className={active ? 'invisible' : 'block border-2 bg-purpleLight rounded-2xl text-silver p-2  mb-2.5' } onClick={nextQuestionHandler}  >Next > </button></div>
 
                     </div>
 
@@ -136,10 +138,13 @@ export default function MyFirst({stateHandler}) {
 
             )}
         </section>
-            <div>
+
                 {showRewardText ? (
-                    <div className='max-w-xs text-bubble-gum' >REWARD
-                        {<p className='text-left break-words text-white'>{quiz[currentQuestion]?.QuestionExplanation}</p>}
+                    <div className={'flex m-auto  w-2/4 relative bg-newPurpleSlam/50 rounded-xl boxShadow outline outline-4 outline-white p-5 '}>
+                    <div className=' grid ' >
+                        <h2 className=' font-bold font-bold m-auto text-3xl mb-5 text-white tracking-widest text-silver'>REWARD</h2>
+                        {<p className=' text-left break-words text-white italic text-xl font-light  '>{quiz[currentQuestion]?.QuestionExplanation}</p>}
+                    </div>
                     </div>
                 ) : (<>
 
@@ -151,7 +156,7 @@ export default function MyFirst({stateHandler}) {
 
                 )}
 
-            </div>
+
 
 
 
