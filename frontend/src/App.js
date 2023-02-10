@@ -1,17 +1,17 @@
 import "./App.css"
-import FetchAPI from "./components/fetchAPI"
 import Footer from "./components/footer"
 import Logo from "./components/logo"
 import PlayMusic from "./components/PlayMusic"
 import StartInfo from "./components/StartInfo"
-
+import React, {useState, useEffect} from "react"
+import QuizGame from "./components/QuizGame"
 function App() {
+    const [isStarted,setIsStarted] = useState(false)
   return (
     <div className="">
-      {/* <FetchAPI /> */} 
       <Logo />
-
-      <StartInfo />
+        {isStarted && <QuizGame stateHandler={setIsStarted}/>}
+        {!isStarted && <StartInfo stateHandler={setIsStarted}/>}
       <PlayMusic />
 
       <div className="">
