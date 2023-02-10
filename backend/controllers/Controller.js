@@ -67,15 +67,13 @@ const patchExistingQuestion = asyncHandler(async (req, res) => {
     if( !QuestionIndex) {
         return res.status(400).json({message: 'Question Index field is required'})}
 
-
-    const question = await Quiz.findOneAndUpdate(QuestionIndex).exec()
+    const question = await Quiz.findOneAndUpdate({QuestionIndex: QuestionIndex})
 
 
     // ! Not found
     if (!question) {
         return res.status(400).json({message: 'Question from Quiz not found.'})
     }
-
     question.QuestionDescription = QuestionDescription
     question.QuestionOptions = QuestionOptions
     question.QuestionExplanation = QuestionExplanation
