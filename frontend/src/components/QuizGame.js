@@ -87,11 +87,12 @@ export default function QuizGame({ stateHandler }) {
     <>
       <section className="flex m-auto  w-2/4 relative bg-purple-600 mb-28 rounded-xl shadow-md">
         <button
-          className="absolute top-0 left-0 text-amber-300 hover:bg-purple-200  "
+          className="absolute top-0 left-0 bg-purple-300 p-2 rounded-sm m-5 text-purple-800 hover:bg-amber-300  "
           onClick={returnHandler}
         >
           Return
         </button>
+
         {showScore ? (
           <div className="score-section flex-col-2 m-auto  mt-12 text-white mb 12 ">
             <p className={"animate-pulse inline-block p-2 mb-14"}>
@@ -101,7 +102,7 @@ export default function QuizGame({ stateHandler }) {
               {" "}
               <button
                 className={
-                  "absolute bottom-0 right-0 border-2 rounded-2xl hover:bg-purple-400 text-white p-2 "
+                  "absolute bottom-0 right-0 m-5 rounded-xm hover:bg-amber-300 bg-purple-300 rounded-sm text-purple-800 p-2 "
                 }
                 onClick={resetHandler}
               >
@@ -111,7 +112,7 @@ export default function QuizGame({ stateHandler }) {
           </div>
         ) : (
           <div className="flex-col-2 relative m-auto mt-12 grow">
-            <div className="grid">
+            <div className="grid p-5">
               {loading && <p>Loading...</p>}
               {!loading && (
                 <p className="m-auto text-2xl text-white">
@@ -125,7 +126,7 @@ export default function QuizGame({ stateHandler }) {
               )}
             </div>
 
-            <div className="flex justify-center space-x-4 mb-20 mt-5  ">
+            <div className="grid grid-rows-2 gap-4 mb-20 mt-5 p-10  ">
               {!loading &&
                 quiz[currentQuestion]?.QuestionOptions?.map((answerOption) => (
                   <button
@@ -133,8 +134,8 @@ export default function QuizGame({ stateHandler }) {
                     className={
                       answerOption.isCorrect
                         ? color +
-                          " text-white p-2 border-2 hover:bg-purple-300 transition ease-in-out duration-300 rounded"
-                        : "hover:bg-purple-300 text-white border-2  p-2 transition ease-in-out duration-300 rounded"
+                          " text-white p-2 font-bold tracking-widest uppercase hover:bg-purple-800 outline-dotted outline-4 outline-white  transition ease-in-out duration-300 rounded"
+                        : "hover:bg-purple-800 text-white font-bold tracking-widest uppercase outline-dotted outline-4 outline-white  p-2 transition ease-in-out duration-300 rounded"
                     }
                     key={answerOption.answerText}
                     onClick={() =>
@@ -154,7 +155,7 @@ export default function QuizGame({ stateHandler }) {
                 className={
                   active
                     ? "invisible"
-                    : " block border-2 bg-purple-300 hover:bg-purple-600 rounded-2xl text-white px-5 py-1 "
+                    : "m-5 bg-purple-300 hover:bg-amber-300 rounded-sm text-purple-800 px-5 py-1 "
                 }
                 onClick={nextQuestionHandler}
               >
@@ -168,17 +169,21 @@ export default function QuizGame({ stateHandler }) {
       {showRewardText ? (
         <div
           className={
-            "flex m-auto  w-2/4 relative bg-purple-800/50 rounded-xl boxShadow outline outline-4 outline-white p-5 "
+            "flex m-auto  w-2/4 relative bg-purple-600/70 rounded-xl boxShadow outline-8 outline-dotted outline-white  p-5 "
           }
         >
-          <div className=" grid ">
-            <h2 className=" font-bold m-auto text-3xl mb-5 tracking-widest text-amber-300">
-              REWARD
-            </h2>
+          <div>
+            <div className=" flex justify-center m-0">
+              <h2 className=" font-bold m-auto text-3xl mb-5 tracking-widest text-purple-300 uppercase">
+                more info
+              </h2>
+            </div>
             {
-              <p className=" text-left break-words text-white italic text-xl font-light  ">
-                {quiz[currentQuestion]?.QuestionExplanation}
-              </p>
+              <div className=" flex justify-center m-0">
+                <p className=" text-left break-words text-white italic text-xl font-light  ">
+                  {quiz[currentQuestion]?.QuestionExplanation}
+                </p>
+              </div>
             }
           </div>
         </div>
