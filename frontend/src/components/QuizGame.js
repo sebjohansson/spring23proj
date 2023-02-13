@@ -43,7 +43,6 @@ export default function QuizGame({ stateHandler }) {
     fetchData();
   }, []);
 
-  console.log(quiz);
   //Resetting to first question and set points to zero
   const resetHandler = () => {
     setCurrentQuestion(0);
@@ -97,10 +96,11 @@ export default function QuizGame({ stateHandler }) {
         )}
 
         {showScore ? (
-          <div className="score-section flex-col-2 m-auto m-6 mt-12 mb-12 text-white ">
-            <Results score={score} />
-            <div className={"inline-block"}>
+          <div className="m-auto w-screen m-6 mt-12 mb-12 text-white ">
+            <div >
               {" "}
+              <Results score={score} />
+
               <button
                 className={
                   "absolute bottom-0 right-0 m-5 rounded-xm hover:bg-amber-300 bg-purple-300 rounded-sm text-purple-800 p-2 "
@@ -160,7 +160,7 @@ export default function QuizGame({ stateHandler }) {
                 }
                 onClick={nextQuestionHandler}
               >
-                Next{" "}
+                Next {">"}
               </button>
             </div>
           </div>
