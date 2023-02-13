@@ -1,40 +1,40 @@
-import icon1 from "../assets/icon-08.svg"
-import icon2 from "../assets/icon-09.svg"
-import icon3 from "../assets/icon-11.svg"
-import icon4 from "../assets/icon-12.svg"
-import icon5 from "../assets/icon-10.svg"
-import marten from "../assets/marten.mp3"
-import benny from "../assets/benny.mp3"
-import linna from "../assets/linna.mp3"
-import kj from "../assets/kj.mp3"
-import sebbe from "../assets/sebbe.mp3"
+import icon1 from "../assets/icon-08.svg";
+import icon2 from "../assets/icon-09.svg";
+import icon3 from "../assets/icon-11.svg";
+import icon4 from "../assets/icon-12.svg";
+import icon5 from "../assets/icon-10.svg";
+import marten from "../assets/marten.mp3";
+import benny from "../assets/benny.mp3";
+import linna from "../assets/linna.mp3";
+import kj from "../assets/kj.mp3";
+import sebbe from "../assets/sebbe.mp3";
 
 const Footer = () => {
-  let audioMarten = new Audio(marten)
-  audioMarten.volume = 0.2
+  let audioMarten = new Audio(marten);
+  audioMarten.volume = 0.2;
   const marten1 = () => {
-    audioMarten.play()
-  }
-  let audioBenny = new Audio(benny)
-  audioBenny.volume = 0.2
+    audioMarten.play();
+  };
+  let audioBenny = new Audio(benny);
+  audioBenny.volume = 0.2;
   const benny1 = () => {
-    audioBenny.play()
-  }
-  let audioSebbe = new Audio(sebbe)
-  audioSebbe.volume = 0.2
+    audioBenny.play();
+  };
+  let audioSebbe = new Audio(sebbe);
+  audioSebbe.volume = 0.2;
   const sebbe1 = () => {
-    audioSebbe.play()
-  }
-  let audioKj = new Audio(kj)
-  audioKj.volume = 0.2
+    audioSebbe.play();
+  };
+  let audioKj = new Audio(kj);
+  audioKj.volume = 0.2;
   const kj1 = () => {
-    audioKj.play()
-  }
-  let audioLinna = new Audio(linna)
-  audioLinna.volume = 0.2
+    audioKj.play();
+  };
+  let audioLinna = new Audio(linna);
+  audioLinna.volume = 0.2;
   const linna1 = () => {
-    audioLinna.play()
-  }
+    audioLinna.play();
+  };
 
   return (
     <div className="pt-10">
@@ -153,7 +153,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

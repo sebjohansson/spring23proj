@@ -1,103 +1,104 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
+import Results from "./Results";
 
 export default function QuizGame({ stateHandler }) {
-  const [active, setActive] = useState(true)
-  const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [showScore, setShowScore] = useState(false)
-  const [score, setScore] = useState(0)
-  const [showRewardText, setShowRewardText] = useState(false)
-  const [color, setColor] = useState("")
+  const [active, setActive] = useState(true);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+  const [score, setScore] = useState(0);
+  const [showRewardText, setShowRewardText] = useState(false);
+  const [color, setColor] = useState("");
 
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [quiz, setQuiz] = useState([])
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [quiz, setQuiz] = useState([]);
 
   const shuffleArray = (d) => {
     for (let i = d.length; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      d.push(d[j])
-      d.splice(j, 1)
+      const j = Math.floor(Math.random() * (i + 1));
+      d.push(d[j]);
+      d.splice(j, 1);
     }
-    return d
-  }
+    return d;
+  };
 
   useEffect(() => {
     const fetchData = () => {
       fetch(`http://localhost:3500/questions`)
         .then((response) => {
           if (response.ok) {
-            return response.json()
+            return response.json();
           }
         })
         .then((d) => {
-          setLoading(false)
-          setData(d)
-          let v = shuffleArray(d)
-          setQuiz(v.slice(0, 10))
+          setLoading(false);
+          setData(d);
+          let v = shuffleArray(d);
+          setQuiz(v.slice(0, 10));
         })
         .catch((e) => {
-          console.error(`An error occurred: ${e}`)
-        })
-    }
-    fetchData()
-  }, [])
+          console.error(`An error occurred: ${e}`);
+        });
+    };
+    fetchData();
+  }, []);
 
-  console.log(quiz)
+  console.log(quiz);
   //Resetting to first question and set points to zero
   const resetHandler = () => {
-    setCurrentQuestion(0)
-    setShowScore(false)
-    setScore(0)
-    setActive(true)
-    let v = shuffleArray(data)
-    setQuiz(v.slice(0, 10))
-  }
+    setCurrentQuestion(0);
+    setShowScore(false);
+    setScore(0);
+    setActive(true);
+    let v = shuffleArray(data);
+    setQuiz(v.slice(0, 10));
+  };
   const returnHandler = () => {
-    stateHandler(false)
-  }
+    stateHandler(false);
+  };
 
   //Handler for setting score if true and change color based on true or false
   const buttonHandlerGuesser = (isCorrect) => {
-    setShowRewardText(true)
-    setActive(false)
+    setShowRewardText(true);
+    setActive(false);
     if (isCorrect === true) {
-      setColor("bg-green-500 rounded-2xl")
+      setColor("bg-green-500 rounded-2xl");
 
-      setScore(score + 1)
+      setScore(score + 1);
     } else {
-      setColor("bg-red-500 rounded-2xl")
+      setColor("bg-red-500 rounded-2xl");
     }
-  }
+  };
 
   // Handler for button to change next question and change to showScore phase when done with all questions.
   const nextQuestionHandler = () => {
-    setShowRewardText(false)
-    setColor("")
-    const nextQuestion = currentQuestion + 1
-    setActive(true)
+    setShowRewardText(false);
+    setColor("");
+    const nextQuestion = currentQuestion + 1;
+    setActive(true);
     if (nextQuestion < quiz.length) {
-      setCurrentQuestion(nextQuestion)
+      setCurrentQuestion(nextQuestion);
     } else {
-      setShowScore(true)
+      setShowScore(true);
     }
-  }
+  };
 
   // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
   return (
     <>
       <section className="flex m-auto  w-2/4 relative bg-purple-600/50 mb-28 rounded-xl shadow-md">
-        <button
-          className="absolute top-0 left-0 bg-purple-300 p-2 rounded-sm m-5 text-purple-800 hover:bg-amber-300  "
-          onClick={returnHandler}
-        >
-          Return
-        </button>
+        {!showScore && (
+          <button
+            className="absolute top-0 left-0 bg-purple-300 p-2 rounded-sm m-5 text-purple-800 hover:bg-amber-300  "
+            onClick={returnHandler}
+          >
+            Return
+          </button>
+        )}
 
         {showScore ? (
-          <div className="score-section flex-col-2 m-auto  mt-12 text-white mb 12 ">
-            <p className={"animate-pulse inline-block p-2 mb-14"}>
-              You scored {score} out of {quiz.length}{" "}
-            </p>
+          <div className="score-section flex-col-2 m-auto m-6 mt-12 mb-12 text-white ">
+            <Results score={score} />
             <div className={"inline-block"}>
               {" "}
               <button
@@ -196,5 +197,5 @@ export default function QuizGame({ stateHandler }) {
         </>
       )}
     </>
-  )
+  );
 }
