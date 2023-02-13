@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import Results from "./Results"
 
 export default function QuizGame({ stateHandler }) {
   const [active, setActive] = useState(true)
@@ -86,18 +87,16 @@ export default function QuizGame({ stateHandler }) {
   return (
     <>
       <section className="flex m-auto  w-2/4 relative bg-purple-600/50 mb-28 rounded-xl shadow-md">
-        <button
+        {!showScore && <button
           className="absolute top-0 left-0 bg-purple-300 p-2 rounded-sm m-5 text-purple-800 hover:bg-amber-300  "
           onClick={returnHandler}
         >
           Return
-        </button>
+        </button>}
 
         {showScore ? (
-          <div className="score-section flex-col-2 m-auto  mt-12 text-white mb 12 ">
-            <p className={"animate-pulse inline-block p-2 mb-14"}>
-              You scored {score} out of {quiz.length}{" "}
-            </p>
+          <div className="score-section flex-col-2 m-auto m-6 mt-12 mb-12 text-white ">
+            <Results score={score}/>
             <div className={"inline-block"}>
               {" "}
               <button
