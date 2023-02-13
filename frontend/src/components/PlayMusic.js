@@ -23,7 +23,7 @@ const PlayMusic = () => {
   }
 
   return (
-    <div className="absolute top-0 rotate-180">
+    <div className="absolute top-0 rotate-90">
       {(playing === false && (
         <img
           src={rocket1}

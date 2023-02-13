@@ -85,7 +85,7 @@ export default function QuizGame({ stateHandler }) {
   // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
   return (
     <>
-      <section className="flex m-auto  w-2/4 relative bg-purple-600 mb-28 rounded-xl shadow-md">
+      <section className="flex m-auto  w-2/4 relative bg-purple-600/50 mb-28 rounded-xl shadow-md">
         <button
           className="absolute top-0 left-0 bg-purple-300 p-2 rounded-sm m-5 text-purple-800 hover:bg-amber-300  "
           onClick={returnHandler}
@@ -169,10 +169,13 @@ export default function QuizGame({ stateHandler }) {
       {showRewardText ? (
         <div
           className={
-            "flex m-auto  w-2/4 relative bg-purple-600/70 rounded-xl boxShadow outline-8 outline-dotted outline-white  p-5 "
+            "flex m-auto  w-2/4 relative bg-purple-600/50 rounded-xl boxShadow outline-8 outline-dotted outline-white  p-5 "
           }
         >
           <div>
+            <div className=" flex justify-center m-auto w-1/3">
+              <img src={quiz[currentQuestion]?.QuestionImageLink}></img>
+            </div>
             <div className=" flex justify-center m-0">
               <h2 className=" font-bold m-auto text-3xl mb-5 tracking-widest text-purple-300 uppercase">
                 more info
