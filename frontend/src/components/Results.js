@@ -1,12 +1,10 @@
 import gold from "../assets/spaceslammedal-03.png";
 import bronze from "../assets/spaceslammedal-04.png";
 import silver from "../assets/spaceslammedal-05.png";
-import icon4 from "../assets/icon-12.svg";
 import { useState, useEffect } from "react";
 
-const Results = () => {
+const Results = ({score}) => {
   const maxScore = 10;
-  const score = 7;
   const [status, setStatus] = useState("");
 
   const ScoreHandler = () => {
