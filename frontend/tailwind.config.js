@@ -13,7 +13,7 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
       'white': '#ffffff',
-      'purple': '#3f3cbb',
+      'purple': '#cc53fb',
       'midnight': '#121063',
       'metal': '#565584',
       'tahiti': '#3ab7bf',
@@ -22,6 +22,10 @@ module.exports = {
       'bermuda': '#78dcca',
       'newPurpleSlam': '#7f1f81',
       'purpleLight': '#991c9c',
+      'orange': '#e8a009',
+      'darkOrange': '#e4952c',
+      'lightOrange': '#fec257',
+
     },
 
     extend: {
