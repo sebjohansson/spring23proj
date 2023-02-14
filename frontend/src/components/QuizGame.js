@@ -18,6 +18,7 @@ export default function QuizGame({stateHandler}) {
     const [loading, setLoading] = useState(true);
     const [quiz, setQuiz] = useState([]);
 
+    // Function for randomizing the data fetched from db which will be used for picking out 10 questions later.
     const shuffleArray = (d) => {
         for (let i = d.length; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -27,7 +28,7 @@ export default function QuizGame({stateHandler}) {
         return d
     }
 
-
+    // Fetching data from a endpoint to a cloud db which sets at the end 2 sets of data to 2 states. One randomised and sliced and one untouched.
     useEffect(() => {
        const fetchData = () => {
            fetch(`http://localhost:3500/questions`)
@@ -107,10 +108,11 @@ export default function QuizGame({stateHandler}) {
         <section className='flex m-auto  w-2/4 relative bg-newPurpleSlam mb-28 rounded-xl shadow-md'>
             <button className='absolute top-0 left-0 text-lightOrange hover:bg-purpleLight  ' onClick={returnHandler}>Return</button>
             {showScore ? (
-                <div className='score-section flex-col-2 m-auto  mt-12 text-silver mb 12 '><p className={'animate-pulse inline-block p-2 mb-14'}>You scored {score} out of {quiz.length} </p>
-                  <div className={'inline-block'}> <button className={'absolute bottom-0 right-0 border-2 rounded-2xl hover:bg-purpleLight text-silver p-2 '} onClick={resetHandler}>Restart</button></div>
+                <div className='score-section flex-col-2 m-auto  mt-12 text-silver mb-12  '><p className={'animate-pulse inline-block' +
+                    ' p-2 mb-14'}>You scored {score} out of {quiz.length} </p>
+                  <div className={'inline-block'}> <button className={'absolute bottom-0 right-0 border-2 rounded-2xl' +
+                      ' hover:bg-purpleLight text-silver p-2 '} onClick={resetHandler}>Restart</button></div>
                 </div>
-
             ) : (
                 <div className="flex-col-2 relative m-auto mt-12 grow">
                     <div className='grid'>
@@ -120,19 +122,18 @@ export default function QuizGame({stateHandler}) {
                         }
                         {!loading && <p className='m-auto text-3xl text-silver'>{quiz[currentQuestion]?.QuestionDescription}</p>}
                         </div>
-
-
-
                     <div className="flex justify-center space-x-4 mb-20 mt-5  ">
                         {!loading && quiz[currentQuestion]?.QuestionOptions?.map((answerOption) =>
-                            <button disabled={!active}  className={answerOption.isCorrect ? color + " text-silver p-2 border-2 hover:bg-purpleLight transition ease-in-out duration-300 rounded" : "hover:bg-purpleLight text-silver border-2  p-2 hover:bg-metal transition ease-in-out duration-300 rounded"} key={answerOption.answerText} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect, answerOption.answerText )} >{answerOption.answerText}</button>
+                            <button disabled={!active}  className={answerOption.isCorrect ? color +
+                                " text-silver p-2 border-2 hover:bg-purpleLight transition ease-in-out duration-300 rounded" :
+                                "hover:bg-purpleLight text-silver border-2  p-2 hover:bg-metal transition ease-in-out duration-300" +
+                                " rounded"} key={answerOption.answerText} onClick={() =>buttonHandlerGuesser(answerOption.isCorrect,
+                                answerOption.answerText )} >{answerOption.answerText}</button>
                         )}
-
-
-
                     </div>
-                    <div className='absolute right-0 bottom-0  ' > <button className={active ? 'invisible' : ' block border-2 bg-purpleLight hover:bg-newPurpleSlam rounded-2xl text-silver px-5 py-1 ' } onClick={nextQuestionHandler}  >Next  </button></div>
-
+                    <div className='absolute right-0 bottom-0  ' > <button className={active ? 'invisible' :
+                        ' block border-2 bg-purpleLight hover:bg-newPurpleSlam rounded-2xl text-silver px-5 py-1 '
+                    } onClick={nextQuestionHandler}  >Next  </button></div>
                 </div>
 
             )}
@@ -141,8 +142,8 @@ export default function QuizGame({stateHandler}) {
                 {showRewardText ? (
                     <div className={'flex m-auto  w-2/4 relative bg-newPurpleSlam/50 rounded-xl boxShadow outline outline-4 outline-white p-5 '}>
                     <div className=' grid ' >
-                        <h2 className=' font-bold font-bold m-auto text-3xl mb-5 text-white tracking-widest text-lightOrange'>REWARD</h2>
-                        {<p className=' text-left break-words text-white italic text-xl font-light  '>{quiz[currentQuestion]?.QuestionExplanation}</p>}
+                        <h2 className=' font-bold m-auto text-3xl mb-5 tracking-widest text-lightOrange'>REWARD</h2>
+                        {<p className=' text-left break-words text-white italic text-xl font-light  '>{quiz[currentQuestion]?.QuestionExplanation}{quiz[currentQuestion]?.QuestionImageLink}</p>}
                     </div>
                     </div>
                 ) : (<>
