@@ -3,7 +3,7 @@ require("dotenv").config()
 const cors = require("cors")
 const express = require("express")
 const app = express()
-const PORT = process.env.PORT || 3500
+const PORT = process.env.PORT
 const connectDB = require("./config/dbConn")
 const mongoose = require("mongoose")
 mongoose.set("strictQuery", true)
