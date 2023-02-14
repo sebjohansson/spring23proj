@@ -16,10 +16,10 @@ const Results = ({ score }) => {
       setMessage("Congratulations Astronaut!");
     } else if (score <= 8 && score >= 6) {
       setStatus(silver);
-      setMessage("Well done Cadet");
+      setMessage("Well done Cadet!");
     } else if (score <= 5 && score >= 1) {
       setStatus(bronze);
-      setMessage("There are more about space");
+      setMessage("You need to stargaze a bit more");
     } else {
       setStatus(icon5);
       setMessage("Space is truly unknown");
