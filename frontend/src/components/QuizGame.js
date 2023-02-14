@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Results from "./Results";
+import ProgressBar from "./ProgressBar";
 
 export default function QuizGame({ stateHandler }) {
   const [active, setActive] = useState(true);
@@ -8,6 +9,7 @@ export default function QuizGame({ stateHandler }) {
   const [score, setScore] = useState(0);
   const [showRewardText, setShowRewardText] = useState(false);
   const [color, setColor] = useState("");
+  const [completed, setCompleted] = useState(0)
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,6 +53,7 @@ export default function QuizGame({ stateHandler }) {
     setActive(true);
     let v = shuffleArray(data);
     setQuiz(v.slice(0, 10));
+    setCompleted(0)
   };
   const returnHandler = () => {
     stateHandler(false);
@@ -80,15 +83,18 @@ export default function QuizGame({ stateHandler }) {
     } else {
       setShowScore(true);
     }
+    setCompleted(completed + 10)
   };
 
   // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
   return (
     <>
-      <section className="flex m-auto  w-2/4 relative bg-purple-600/50 mb-28 rounded-xl shadow-md">
+      <section className="flex m-auto w-2/4 relative bg-purple-600/50 mb-28 rounded-xl shadow-md">
+      <ProgressBar completed={completed}/>
+
         {!showScore && (
           <button
-            className="absolute top-0 left-0 bg-purple-300 p-2 rounded-sm m-5 text-purple-800 hover:bg-amber-300  "
+            className="absolute top-4 z-40 left-0 bg-purple-300 p-2 rounded-sm m-5 text-purple-800 hover:bg-amber-300  "
             onClick={returnHandler}
           >
             Return
@@ -97,10 +103,9 @@ export default function QuizGame({ stateHandler }) {
 
         {showScore ? (
           <div className="m-auto w-screen m-6 mt-12 mb-12 text-white ">
-            <div >
+            <div>
               {" "}
               <Results score={score} />
-
               <button
                 className={
                   "absolute bottom-0 right-0 m-5 rounded-xm hover:bg-amber-300 bg-purple-300 rounded-sm text-purple-800 p-2 "
@@ -114,7 +119,7 @@ export default function QuizGame({ stateHandler }) {
         ) : (
           <div className="flex-col-2 relative m-auto mt-12 grow">
             <div className="grid p-5">
-              {loading && <p>Loading...</p>}
+              {loading && <p className="m-auto">Loading...</p>}
               {!loading && (
                 <p className="m-auto text-2xl text-white">
                   Question {currentQuestion + 1} /{quiz.length}{" "}

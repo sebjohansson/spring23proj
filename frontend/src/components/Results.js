@@ -35,7 +35,7 @@ const Results = ({ score }) => {
       } else {
         console.log("Loading...")
       }
-    }, 1000);
+    }, 700);
   }, [score]);
 
   return (
