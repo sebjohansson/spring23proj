@@ -31,7 +31,7 @@ const Footer = () => {
     audioKj.play();
   };
   let audioLinna = new Audio(linna);
-  audioLinna.volume = 0.2
+  audioLinna.volume = 0.2;
   const linna1 = () => {
     audioLinna.play();
   };

@@ -1,12 +1,12 @@
-import laser from "../assets/laser.mp3"
+import laser from "../assets/laser.mp3";
 
-const StartInfo = ({stateHandler}) => {
-  let audio = new Audio(laser)
+const StartInfo = ({ stateHandler }) => {
+  let audio = new Audio(laser);
   const startLaser = () => {
-    audio.play()
-      stateHandler(true)
-
-  }
+    audio.play();
+    audio.volume = 0.1;
+    stateHandler(true);
+  };
 
   return (
     <section className="bg-purple-500 bg-opacity-50 outline-8 outline-dotted outline-purple-400 p-10 m-auto w-4/5 md:w-3/5 lg:w-2/5 rounded-lg pt-10 pb-10">
@@ -26,7 +26,7 @@ const StartInfo = ({stateHandler}) => {
         </button>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default StartInfo
+export default StartInfo;
