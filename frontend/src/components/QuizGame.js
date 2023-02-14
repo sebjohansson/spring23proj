@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Results from "./Results";
 import ProgressBar from "./ProgressBar";
+import Reward from "./Reward";
 
 export default function QuizGame({ stateHandler }) {
+  const API_URL = 'http://localhost:3500/questions';
+  
   const [active, setActive] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -28,7 +31,7 @@ export default function QuizGame({ stateHandler }) {
     // Fetching data from a endpoint to a cloud db which sets at the end 2 sets of data to 2 states. One randomised and sliced and one untouched.
     useEffect(() => {
     const fetchData = () => {
-      fetch(`http://localhost:3500/questions`)
+      fetch(API_URL)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -174,6 +177,7 @@ export default function QuizGame({ stateHandler }) {
         )}
       </section>
 
+      {<Reward stateHandler={quiz} />}
       {showRewardText ? (
         <div
           className={
