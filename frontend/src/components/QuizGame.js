@@ -19,6 +19,7 @@ export default function QuizGame({ stateHandler }) {
   const [loading, setLoading] = useState(true);
   const [quiz, setQuiz] = useState([]);
 
+  //Function for randomising the data in d that gets saved to v and later to the state quiz
   const shuffleArray = (d) => {
     for (let i = d.length; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -28,7 +29,11 @@ export default function QuizGame({ stateHandler }) {
     return d;
   };
 
-  useEffect(() => {
+    useEffect(() => {
+      /**
+       * Fetching data from an endpoint and then sets the response body to be stored to 2 sets of states quiz and data.
+       * Quiz gets randomised and sliced and data are untouched for resetting the game by resetHandler at the end of the game.
+       */
     const fetchData = () => {
       fetch(API_URL)
         .then((response) => {
@@ -49,7 +54,7 @@ export default function QuizGame({ stateHandler }) {
     fetchData();
   }, []);
 
-  //Resetting to first question and set points to zero
+  //ResetHandler for a new game, resetting the currentQuestion,score,showScore,active,question data.body that gives 10 new randomized Questions
   const resetHandler = () => {
     setRead(false);
     setCurrentQuestion(0);
@@ -60,14 +65,16 @@ export default function QuizGame({ stateHandler }) {
     setQuiz(v.slice(0, 10));
     setCompleted(0)
   };
+  // Handler for changing back to starting page. Reasons because of the responsive state stateHandler that loads in to the quizGame and acts a little like toggle between a child and parent
   const returnHandler = () => {
     stateHandler(false);
   };
+  // Handler that changes states between true and false on read and acts like a toggle
   const readHandler = () => {
     setRead((read) => !read);
   }
 
-  //Handler for setting score if true and change color based on true or false
+  //Handler for setting score if true,shows reward text when making a choice and change color based on true or false
   const buttonHandlerGuesser = (isCorrect) => {
     setShowRewardText(true);
     setActive(false);
@@ -80,7 +87,7 @@ export default function QuizGame({ stateHandler }) {
     }
   };
 
-  // Handler for button to change next question and change to showScore phase when done with all questions.
+  // Handler for button to change next question and change to showScore phase/state when done with all questions.
   const nextQuestionHandler = () => {
     setShowRewardText(false);
     setColor("");
@@ -94,7 +101,7 @@ export default function QuizGame({ stateHandler }) {
     setCompleted(completed + 10)
   };
 
-  // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
+  // creates a background
   return (
    <>
       <section className="flex m-auto w-2/4 relative bg-purple-600/50 mb-28 rounded-xl shadow-md">
@@ -196,23 +203,23 @@ export default function QuizGame({ stateHandler }) {
         )}
       </section>
       {read && <Reward stateHandler={quiz} />}
-      {showRewardText ? (
         <div
-          className={
-            "flex m-auto  w-2/4 relative bg-purple-600/50 rounded-xl boxShadow outline-8 outline-dotted outline-white  p-5 "
+          className={ showRewardText ?
+            "flex top-0 m-auto transition-all duration-1000 ease-in-out w-2/4 relative bg-purple-600/50 rounded-xl boxShadow outline-8 outline-dotted outline-white  p-5 " :
+            "top-[-260px] opacity-0"
           }
         >
           <div>
-            <div className=" flex justify-center m-auto w-1/3">
+            <div className={showRewardText ? "flex justify-center m-auto w-1/3" : "hidden"}>
               <img src={quiz[currentQuestion]?.QuestionImageLink}></img>
             </div>
-            <div className=" flex justify-center m-0">
+            <div className={showRewardText ? "flex justify-center m-0": "hidden"}>
               <h2 className=" font-bold m-auto text-3xl mb-5 tracking-widest text-purple-300 uppercase">
                 more info
               </h2>
             </div>
             {
-              <div className=" flex justify-center m-0">
+              <div className={showRewardText ? " flex justify-center m-0 " : "hidden"}>
                 <p className=" text-left break-words text-white italic text-xl font-light  ">
                   {quiz[currentQuestion]?.QuestionExplanation}
                 </p>
@@ -220,11 +227,6 @@ export default function QuizGame({ stateHandler }) {
             }
           </div>
         </div>
-      ) : (
-        <>
-          <div className="hidden"></div>
-        </>
-      )}
     </>
   );
 }

@@ -11,8 +11,12 @@ mongoose.set("strictQuery", true)
 connectDB()
 app.use(cors())
 app.use(express.json())
+// Pathway to be used for CRUD functions and all fields are required.
 app.use("/questions", require("./routes/routes"))
+// Pathway to be used for only patching in images
 app.use("/img", require("./routes/ImgRoute"))
+// Pathway to be used for only patching in QuestionOptions answerText and isCorrect
+app.use('/QuestionOption', require('./routes/QuestionOptionsRoute'))
 
 //throw
 app.all("*", (req, res) => {
