@@ -19,7 +19,7 @@ export default function QuizGame({ stateHandler }) {
   const [loading, setLoading] = useState(true);
   const [quiz, setQuiz] = useState([]);
 
-
+  //Function for randomising the data in d that gets saved to v and later to the state quiz
   const shuffleArray = (d) => {
     for (let i = d.length; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -65,14 +65,16 @@ export default function QuizGame({ stateHandler }) {
     setQuiz(v.slice(0, 10));
     setCompleted(0)
   };
+  // Handler for changing back to starting page. Reasons because of the responsive state stateHandler that loads in to the quizGame and acts a little like toggle between a child and parent
   const returnHandler = () => {
     stateHandler(false);
   };
+  // Handler that changes states between true and false on read and acts like a toggle
   const readHandler = () => {
     setRead((read) => !read);
   }
 
-  //Handler for setting score if true and change color based on true or false
+  //Handler for setting score if true,shows reward text when making a choice and change color based on true or false
   const buttonHandlerGuesser = (isCorrect) => {
     setShowRewardText(true);
     setActive(false);
@@ -85,7 +87,7 @@ export default function QuizGame({ stateHandler }) {
     }
   };
 
-  // Handler for button to change next question and change to showScore phase when done with all questions.
+  // Handler for button to change next question and change to showScore phase/state when done with all questions.
   const nextQuestionHandler = () => {
     setShowRewardText(false);
     setColor("");
@@ -99,7 +101,7 @@ export default function QuizGame({ stateHandler }) {
     setCompleted(completed + 10)
   };
 
-  // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
+  // creates a background
   return (
    <>
       <section className="flex m-auto w-2/4 relative bg-purple-600/50 mb-28 rounded-xl shadow-md">
