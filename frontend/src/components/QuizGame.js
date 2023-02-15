@@ -203,23 +203,23 @@ export default function QuizGame({ stateHandler }) {
         )}
       </section>
       {read && <Reward stateHandler={quiz} />}
-      {showRewardText ? (
         <div
-          className={
-            "flex m-auto  w-2/4 relative bg-purple-600/50 rounded-xl boxShadow outline-8 outline-dotted outline-white  p-5 "
+          className={ showRewardText ?
+            "flex top-0 m-auto transition-all duration-1000 ease-in-out w-2/4 relative bg-purple-600/50 rounded-xl boxShadow outline-8 outline-dotted outline-white  p-5 " :
+            "top-[-260px] opacity-0"
           }
         >
           <div>
-            <div className=" flex justify-center m-auto w-1/3">
+            <div className={showRewardText ? "flex justify-center m-auto w-1/3" : "hidden"}>
               <img src={quiz[currentQuestion]?.QuestionImageLink}></img>
             </div>
-            <div className=" flex justify-center m-0">
+            <div className={showRewardText ? "flex justify-center m-0": "hidden"}>
               <h2 className=" font-bold m-auto text-3xl mb-5 tracking-widest text-purple-300 uppercase">
                 more info
               </h2>
             </div>
             {
-              <div className=" flex justify-center m-0">
+              <div className={showRewardText ? " flex justify-center m-0 " : "hidden"}>
                 <p className=" text-left break-words text-white italic text-xl font-light  ">
                   {quiz[currentQuestion]?.QuestionExplanation}
                 </p>
@@ -227,11 +227,6 @@ export default function QuizGame({ stateHandler }) {
             }
           </div>
         </div>
-      ) : (
-        <>
-          <div className="hidden"></div>
-        </>
-      )}
     </>
   );
 }
