@@ -28,8 +28,11 @@ export default function QuizGame({ stateHandler }) {
     return d;
   };
 
-    // Fetching data from a endpoint to a cloud db which sets at the end 2 sets of data to 2 states. One randomised and sliced and one untouched.
     useEffect(() => {
+      /**
+       * Fetching data from an endpoint and then sets the response body to be stored to 2 sets of states quiz and data.
+       * Quiz gets randomised and sliced and data are untouched for resetting the game by resetHandler at the end of the game.
+       */
     const fetchData = () => {
       fetch(API_URL)
         .then((response) => {
@@ -50,7 +53,7 @@ export default function QuizGame({ stateHandler }) {
     fetchData();
   }, []);
 
-  //Resetting to first question and set points to zero
+  //ResetHandler for a new game, resetting the currentQuestion,score,showScore,active,question data.body that gives 10 new randomized Questions
   const resetHandler = () => {
     setCurrentQuestion(0);
     setShowScore(false);
