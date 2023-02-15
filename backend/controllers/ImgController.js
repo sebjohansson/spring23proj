@@ -1,6 +1,6 @@
 const Quiz = require("../models/Quiz")
 const asyncHandler = require("express-async-handler")
-
+// Function for patching only the images by using QuestionIndex and QuestionImageLink
 const patchImg = asyncHandler(async (req, res) => {
   const { QuestionIndex, QuestionImageLink } = req.body
 
@@ -21,7 +21,7 @@ const patchImg = asyncHandler(async (req, res) => {
 
   res.json({ message: `${updatedQuestion.QuestionImageLink} updated` })
 })
-
+// exporting the function to be able to import it
 module.exports = {
   patchImg,
 }
