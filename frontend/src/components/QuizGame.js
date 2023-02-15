@@ -110,7 +110,7 @@ export default function QuizGame({ stateHandler }) {
         )}
 
         {showScore ? (
-          <div className="m-auto w-screen m-6 mt-12 mb-12 text-white ">
+          <div className="m-auto w-screen m-6 mt-12 mb-24 text-white ">
             <div>
               {" "}
               <Results score={score} />

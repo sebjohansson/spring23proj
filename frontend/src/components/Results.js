@@ -40,7 +40,7 @@ const Results = ({ score }) => {
 
   return (
     <div>
-      <section className="bg-purple-500 bg-opacity-50 outline-8 outline-dotted outline-purple-400 p-10 m-auto md:w-3/5 lg:w-2/5 rounded-lg pt-10 pb-10 text-center">
+      <section className="bg-purple-400 bg-opacity-50 outline-8 outline-dotted outline-purple-400 p-10 m-auto md:w-3/5 lg:w-2/5 rounded-lg pt-10 pb-10 text-center">
         <img
           className={
             isLoading
