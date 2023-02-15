@@ -13,6 +13,7 @@ export default function QuizGame({ stateHandler }) {
   const [showRewardText, setShowRewardText] = useState(false);
   const [color, setColor] = useState("");
   const [completed, setCompleted] = useState(0)
+  const [read, setRead] = useState(false)
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,6 +56,7 @@ export default function QuizGame({ stateHandler }) {
 
   //ResetHandler for a new game, resetting the currentQuestion,score,showScore,active,question data.body that gives 10 new randomized Questions
   const resetHandler = () => {
+    setRead(false);
     setCurrentQuestion(0);
     setShowScore(false);
     setScore(0);
@@ -66,6 +68,9 @@ export default function QuizGame({ stateHandler }) {
   const returnHandler = () => {
     stateHandler(false);
   };
+  const readHandler = () => {
+    setRead((read) => !read);
+  }
 
   //Handler for setting score if true and change color based on true or false
   const buttonHandlerGuesser = (isCorrect) => {
@@ -96,9 +101,9 @@ export default function QuizGame({ stateHandler }) {
 
   // creates a background with 3 div fields which contains questions,answerOptions with buttons and rewardText for right answer.
   return (
-    <>
+   <>
       <section className="flex m-auto w-2/4 relative bg-purple-600/50 mb-28 rounded-xl shadow-md">
-      <ProgressBar completed={completed}/>
+        <ProgressBar completed={completed} />
 
         {!showScore && (
           <button
@@ -123,6 +128,22 @@ export default function QuizGame({ stateHandler }) {
                 Restart
               </button>
             </div>
+            {!read ? <button
+              className={
+                "absolute bottom-0 left-0 m-5 rounded-xm hover:bg-amber-300 bg-purple-300 rounded-sm text-purple-800 p-2 "
+              }
+              onClick={readHandler}
+            >
+              Read info
+            </button> :
+           <button
+           className={
+             "absolute bottom-0 left-0 m-5 rounded-xm hover:bg-amber-300 bg-purple-300 rounded-sm text-purple-800 p-2 "
+           }
+           onClick={readHandler}
+         >
+           Close Info
+         </button> } 
           </div>
         ) : (
           <div className="flex-col-2 relative m-auto mt-12 grow">
@@ -179,8 +200,7 @@ export default function QuizGame({ stateHandler }) {
           </div>
         )}
       </section>
-
-      {<Reward stateHandler={quiz} />}
+      {read && <Reward stateHandler={quiz} />}
       {showRewardText ? (
         <div
           className={
