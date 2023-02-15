@@ -51,7 +51,7 @@ export default function QuizGame({ stateHandler }) {
 
   //Resetting to first question and set points to zero
   const resetHandler = () => {
-    //setRead(false);
+    setRead(false);
     setCurrentQuestion(0);
     setShowScore(false);
     setScore(0);
@@ -64,7 +64,7 @@ export default function QuizGame({ stateHandler }) {
     stateHandler(false);
   };
   const readHandler = () => {
-    setRead(true);
+    setRead((read) => !read);
   }
 
   //Handler for setting score if true and change color based on true or false
@@ -123,14 +123,22 @@ export default function QuizGame({ stateHandler }) {
                 Restart
               </button>
             </div>
-            <button
+            {!read ? <button
               className={
                 "absolute bottom-0 left-0 m-5 rounded-xm hover:bg-amber-300 bg-purple-300 rounded-sm text-purple-800 p-2 "
               }
               onClick={readHandler}
             >
               Read info
-            </button>
+            </button> :
+           <button
+           className={
+             "absolute bottom-0 left-0 m-5 rounded-xm hover:bg-amber-300 bg-purple-300 rounded-sm text-purple-800 p-2 "
+           }
+           onClick={readHandler}
+         >
+           Close Info
+         </button> } 
           </div>
         ) : (
           <div className="flex-col-2 relative m-auto mt-12 grow">
@@ -187,7 +195,7 @@ export default function QuizGame({ stateHandler }) {
           </div>
         )}
       </section>
-      {read ?? <Reward stateHandler={quiz} />}
+      {read && <Reward stateHandler={quiz} />}
       {showRewardText ? (
         <div
           className={
